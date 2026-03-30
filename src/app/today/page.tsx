@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { CheckCircle, Circle, Clock, Mail, MessageSquare, Zap, ChevronRight, FileText, Target } from 'lucide-react'
+import { CheckCircle, Circle, Clock, Mail, MessageSquare, Zap, ChevronRight, ChevronDown, FileText, Target, Copy, Eye } from 'lucide-react'
 import { PlaybookTask, Organization, Contact, EmailTemplate, OutreachWave, RELATIONSHIP_LABELS } from '@/lib/types'
 import { ensureSeeded, getPlaybookTasksForDate, getOrganizations, getContacts, getTemplates, getWaves, savePlaybookTask, getPlaybookTasks, savePlaybookTasks } from '@/lib/store'
 import { getOrgRecommendations } from '@/lib/recommendations'
@@ -23,6 +23,7 @@ export default function TodayPage() {
   const [waves, setWaves] = useState<OutreachWave[]>([])
   const [showAddContact, setShowAddContact] = useState(false)
   const [addContactOrgId, setAddContactOrgId] = useState<string>('')
+  const [expandedTemplate, setExpandedTemplate] = useState<string | null>(null)
   const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0])
 
   const reload = () => {
@@ -178,13 +179,56 @@ export default function TodayPage() {
                       </button>
                     )}
 
-                    {/* Template link */}
-                    {template && (
-                      <Link href="/templates" className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-wp-mid transition-colors mb-2">
-                        <FileText className="w-3 h-3" />
-                        Template: {template.name}
-                      </Link>
-                    )}
+                    {/* Template preview */}
+                    {template && (() => {
+                      const isExpanded = expandedTemplate === task.id
+                      // Merge variables with org data
+                      const vars: Record<string, string> = {
+                        first_name: contact?.first_name || '[First Name]',
+                        organization_name: org?.organization_name || '[Organization]',
+                        city: org?.location_city || '[City]',
+                        target_reason: org?.strategic_notes?.split('.')[0] || 'pedestrian safety research',
+                        original_subject: 'Pedestrian signal timing research',
+                      }
+                      let previewBody = template.body
+                      let previewSubject = template.subject
+                      for (const [key, val] of Object.entries(vars)) {
+                        previewBody = previewBody.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), val)
+                        previewSubject = previewSubject.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), val)
+                      }
+                      return (
+                        <div className="mb-2">
+                          <button
+                            onClick={() => setExpandedTemplate(isExpanded ? null : task.id)}
+                            className="flex items-center gap-1.5 text-xs text-wp-mid font-medium hover:text-wp-deep transition-colors"
+                          >
+                            {isExpanded ? <ChevronDown className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                            <FileText className="w-3 h-3" />
+                            {isExpanded ? 'Hide template' : `View template: ${template.name}`}
+                          </button>
+                          {isExpanded && (
+                            <div className="mt-2 bg-gray-50 rounded-xl p-4 border border-gray-100 animate-slide-up">
+                              <div className="flex items-center justify-between mb-2">
+                                <div>
+                                  <p className="text-[10px] text-gray-400 uppercase tracking-wide">Subject</p>
+                                  <p className="text-sm font-medium text-gray-900">{previewSubject}</p>
+                                </div>
+                                <button
+                                  onClick={() => navigator.clipboard.writeText(`Subject: ${previewSubject}\n\n${previewBody}`)}
+                                  className="btn-ghost text-gray-400 hover:text-wp-mid p-1.5"
+                                  title="Copy to clipboard"
+                                >
+                                  <Copy className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                              <div className="border-t border-gray-200 pt-2">
+                                <pre className="text-xs text-gray-700 whitespace-pre-wrap font-sans leading-relaxed">{previewBody}</pre>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })()}
 
                     {task.notes && <p className="text-xs text-gray-400 italic">{task.notes}</p>}
 
