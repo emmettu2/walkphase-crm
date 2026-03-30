@@ -4,14 +4,14 @@ import { Organization, Contact, OutreachActivity, ScoringWeights, DEFAULT_WEIGHT
 import { SEED_ORGANIZATIONS, SEED_CONTACTS, SEED_ACTIVITIES, SEED_TEMPLATES, SEED_WAVES, SEED_PLAYBOOK } from './seed'
 
 const KEYS = {
-  organizations: 'wp_crm_organizations_v2',
-  contacts: 'wp_crm_contacts_v2',
-  activities: 'wp_crm_activities_v2',
+  organizations: 'wp_crm_organizations_v3',
+  contacts: 'wp_crm_contacts_v3',
+  activities: 'wp_crm_activities_v3',
   weights: 'wp_crm_scoring_weights',
-  templates: 'wp_crm_templates',
-  waves: 'wp_crm_waves',
-  playbook: 'wp_crm_playbook',
-  seeded: 'wp_crm_seeded_v2',
+  templates: 'wp_crm_templates_v2',
+  waves: 'wp_crm_waves_v2',
+  playbook: 'wp_crm_playbook_v2',
+  seeded: 'wp_crm_seeded_v3',
 }
 
 function load<T>(key: string, fallback: T): T {
