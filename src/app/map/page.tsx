@@ -61,8 +61,17 @@ const STATE_PATHS: Record<string, string> = {
   DC: 'M760,332 L768,328 L770,336 L762,338Z',
 }
 
-function getHeatColor(count: number, max: number): string {
+function getHeatColor(count: number, max: number, mode: 'contacted' | 'all'): string {
   if (count === 0) return '#f3f4f6' // gray-100
+  if (mode === 'all') {
+    // Neutral blue/slate for "has orgs but not necessarily contacted"
+    const intensity = Math.min(count / Math.max(max, 1), 1)
+    if (intensity <= 0.25) return '#e0e7ff' // indigo-100
+    if (intensity <= 0.5) return '#a5b4fc' // indigo-300
+    if (intensity <= 0.75) return '#6366f1' // indigo-500
+    return '#4338ca' // indigo-700
+  }
+  // Green for contacted
   const intensity = Math.min(count / Math.max(max, 1), 1)
   if (intensity <= 0.25) return '#dcfce7' // wp-100
   if (intensity <= 0.5) return '#86efac' // wp-300
@@ -75,7 +84,7 @@ export default function MapPage() {
   const [orgs, setOrgs] = useState<Organization[]>([])
   const [contacts, setContacts] = useState<Contact[]>([])
   const [hoveredState, setHoveredState] = useState<string | null>(null)
-  const [filter, setFilter] = useState<'all' | 'contacted'>('all')
+  const [filter, setFilter] = useState<'all' | 'contacted'>('contacted')
 
   useEffect(() => {
     ensureSeeded()
@@ -168,7 +177,7 @@ export default function MapPage() {
             {Object.entries(STATE_PATHS).map(([state, path]) => {
               const data = stateCounts.get(state)
               const count = data ? (filter === 'contacted' ? data.contacted : data.total) : 0
-              const color = getHeatColor(count, maxCount)
+              const color = getHeatColor(count, maxCount, filter)
               return (
                 <path
                   key={state}
@@ -219,24 +228,23 @@ export default function MapPage() {
         <div className="flex items-center justify-center gap-6 mt-4 pt-4 border-t border-gray-100">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-gray-100 border border-gray-200" />
-            <span className="text-xs text-gray-500">No orgs</span>
+            <span className="text-xs text-gray-500">None</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-wp-100" />
-            <span className="text-xs text-gray-500">1–2</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-wp-300" />
-            <span className="text-xs text-gray-500">3–5</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-wp-500" />
-            <span className="text-xs text-gray-500">6–10</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-wp-700" />
-            <span className="text-xs text-gray-500">10+</span>
-          </div>
+          {filter === 'contacted' ? (
+            <>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#dcfce7'}} /><span className="text-xs text-gray-500">1</span></div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#86efac'}} /><span className="text-xs text-gray-500">2–3</span></div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#22c55e'}} /><span className="text-xs text-gray-500">4–6</span></div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#166534'}} /><span className="text-xs text-gray-500">7+</span></div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#e0e7ff'}} /><span className="text-xs text-gray-500">1–2</span></div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#a5b4fc'}} /><span className="text-xs text-gray-500">3–5</span></div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#6366f1'}} /><span className="text-xs text-gray-500">6–10</span></div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{backgroundColor:'#4338ca'}} /><span className="text-xs text-gray-500">10+</span></div>
+            </>
+          )}
         </div>
       </div>
 
