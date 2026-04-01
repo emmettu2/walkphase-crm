@@ -4,14 +4,15 @@ import { Organization, Contact, OutreachActivity, ScoringWeights, DEFAULT_WEIGHT
 import { SEED_ORGANIZATIONS, SEED_CONTACTS, SEED_ACTIVITIES, SEED_TEMPLATES, SEED_WAVES, SEED_PLAYBOOK } from './seed'
 
 const KEYS = {
-  organizations: 'wp_crm_organizations_v3',
-  contacts: 'wp_crm_contacts_v3',
-  activities: 'wp_crm_activities_v3',
+  organizations: 'wp_crm_organizations_v4',
+  contacts: 'wp_crm_contacts_v4',
+  activities: 'wp_crm_activities_v4',
   weights: 'wp_crm_scoring_weights',
   templates: 'wp_crm_templates_v2',
   waves: 'wp_crm_waves_v2',
-  playbook: 'wp_crm_playbook_v2',
-  seeded: 'wp_crm_seeded_v3',
+  playbook: 'wp_crm_playbook_v3',
+  seeded: 'wp_crm_seeded_v4',
+  ampo_loaded: 'wp_crm_ampo_loaded',
 }
 
 function load<T>(key: string, fallback: T): T {
@@ -37,6 +38,33 @@ export function ensureSeeded() {
   save(KEYS.waves, SEED_WAVES)
   save(KEYS.playbook, SEED_PLAYBOOK)
   localStorage.setItem(KEYS.seeded, 'true')
+  // Auto-load AMPO conference contacts
+  loadAMPOData()
+}
+
+async function loadAMPOData() {
+  if (typeof window === 'undefined') return
+  if (localStorage.getItem(KEYS.ampo_loaded)) return
+  try {
+    const [orgsRes, contactsRes] = await Promise.all([
+      fetch('/ampo-organizations.json'),
+      fetch('/ampo-contacts.json'),
+    ])
+    const ampoOrgs: Organization[] = await orgsRes.json()
+    const ampoContacts: Contact[] = await contactsRes.json()
+    // Merge with existing
+    const existingOrgs = getOrganizations()
+    const existingIds = new Set(existingOrgs.map(o => o.id))
+    const newOrgs = ampoOrgs.filter(o => !existingIds.has(o.id))
+    save(KEYS.organizations, [...existingOrgs, ...newOrgs])
+    const existingContacts = getContacts()
+    const existingContactIds = new Set(existingContacts.map(c => c.id))
+    const newContacts = ampoContacts.filter(c => !existingContactIds.has(c.id))
+    save(KEYS.contacts, [...existingContacts, ...newContacts])
+    localStorage.setItem(KEYS.ampo_loaded, 'true')
+  } catch (e) {
+    console.error('Failed to load AMPO data:', e)
+  }
 }
 
 // ─── Organizations ───

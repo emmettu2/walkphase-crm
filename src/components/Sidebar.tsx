@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import {
   LayoutDashboard, Building2, Users, Kanban, Settings, Upload,
-  Zap, Award, FileText, CalendarDays,
+  Zap, Award, FileText, CalendarDays, Map,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -26,6 +26,7 @@ const NAV_SECTIONS = [
       { href: '/contacts', label: 'Contacts', icon: Users },
       { href: '/pipeline', label: 'Pipeline', icon: Kanban },
       { href: '/awardees', label: 'SS4A Awardees', icon: Award },
+      { href: '/map', label: 'Coverage Map', icon: Map },
     ],
   },
   {

@@ -2,9 +2,9 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Plus, Search, Users, Mail, Phone, Link2, ExternalLink } from 'lucide-react'
+import { Plus, Search, Users, Mail, Phone, Link2, ExternalLink, CheckCircle } from 'lucide-react'
 import { Contact, Organization, RELATIONSHIP_LABELS, CONTACT_TYPE_LABELS } from '@/lib/types'
-import { ensureSeeded, getContacts, getOrganizations } from '@/lib/store'
+import { ensureSeeded, getContacts, getOrganizations, saveContact } from '@/lib/store'
 import { EmptyState } from '@/components/EmptyState'
 import { Modal } from '@/components/Modal'
 import { AddContactForm } from '@/components/AddContactForm'
@@ -129,6 +129,7 @@ export default function ContactsPage() {
                 <th className="table-header">Status</th>
                 <th className="table-header">Last Contact</th>
                 <th className="table-header">Next Action</th>
+                <th className="table-header text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -183,6 +184,29 @@ export default function ContactsPage() {
                         {formatDateShort(contact.next_action_date)}
                       </span>
                     ) : '—'}
+                  </td>
+                  <td className="table-cell text-center">
+                    {contact.relationship_status !== 'emailed' && contact.relationship_status !== 'replied' && contact.relationship_status !== 'meeting_booked' ? (
+                      <button
+                        onClick={() => {
+                          saveContact({
+                            ...contact,
+                            relationship_status: 'emailed',
+                            last_contact_date: new Date().toISOString().split('T')[0],
+                          })
+                          reload()
+                        }}
+                        className="btn-ghost text-xs text-gray-400 hover:text-wp-mid whitespace-nowrap"
+                        title="Mark as contacted today"
+                      >
+                        <Mail className="w-3.5 h-3.5 mr-1 inline" />
+                        Contacted
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-xs text-wp-mid">
+                        <CheckCircle className="w-3.5 h-3.5" />
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}
