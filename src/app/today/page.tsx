@@ -81,6 +81,60 @@ export default function TodayPage() {
 
   const isToday = selectedDate === new Date().toISOString().split('T')[0]
 
+  // Generate a draft email based on org data and best-matching template
+  const generateDraftEmail = (org: Organization): { subject: string; body: string; templateName: string } => {
+    // Pick the right template based on org category
+    let tmpl = templates.find(t => t.category === 'university_initial')
+    if (org.target_category === 'city' || org.target_category === 'county') tmpl = templates.find(t => t.category === 'city_initial') || tmpl
+    else if (org.target_category === 'mpo') tmpl = templates.find(t => t.category === 'mpo_initial') || tmpl
+    if (!tmpl) return { subject: '', body: '', templateName: '' }
+
+    // Build target_reason from what we know
+    let targetReason = 'pedestrian safety research'
+    if (org.target_category === 'university' || org.target_category === 'research_center') {
+      if (org.organization_type_detail) targetReason = org.organization_type_detail.toLowerCase()
+      else targetReason = 'transportation and pedestrian safety research'
+    } else if (org.has_action_plan === 'yes') {
+      targetReason = ', particularly given your existing SS4A Action Plan'
+    } else {
+      targetReason = ' and your pedestrian safety initiatives'
+    }
+
+    const vars: Record<string, string> = {
+      first_name: '[First Name]',
+      organization_name: org.organization_name,
+      city: org.location_city || '[City]',
+      target_reason: targetReason,
+      original_subject: 'Pedestrian signal timing research',
+    }
+
+    let subject = tmpl.subject
+    let body = tmpl.body
+    for (const [key, val] of Object.entries(vars)) {
+      subject = subject.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), val)
+      body = body.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), val)
+    }
+
+    return { subject, body, templateName: tmpl.name }
+  }
+
+  const [draftEmail, setDraftEmail] = useState<{ subject: string; body: string; templateName: string } | null>(null)
+
+  // When org changes in modal, auto-generate draft
+  const handleOrgChange = (orgId: string) => {
+    setNewOrgId(orgId)
+    if (orgId) {
+      const org = orgs.find(o => o.id === orgId)
+      if (org) {
+        const draft = generateDraftEmail(org)
+        setDraftEmail(draft)
+        if (!newAction) setNewAction(`Research ${org.organization_name} team, identify key contacts, and send initial outreach email.`)
+      }
+    } else {
+      setDraftEmail(null)
+    }
+  }
+
   const addTaskToday = (orgId?: string, action?: string) => {
     const targetOrgId = orgId || newOrgId
     const targetAction = action || newAction
@@ -91,9 +145,17 @@ export default function TodayPage() {
       status: 'pending', priority: dayTasks.length + 1,
       suggested_action: targetAction, notes: orgId ? '' : newNotes,
     }
+    // Find matching template to attach
+    const org = orgs.find(o => o.id === targetOrgId)
+    if (org) {
+      let tmplId = 'tmpl-uni-initial'
+      if (org.target_category === 'city' || org.target_category === 'county') tmplId = 'tmpl-city-initial'
+      else if (org.target_category === 'mpo') tmplId = 'tmpl-mpo-initial'
+      task.template_id = tmplId
+    }
     savePlaybookTask(task)
     setShowAddTask(false)
-    setNewOrgId(''); setNewAction(''); setNewNotes('')
+    setNewOrgId(''); setNewAction(''); setNewNotes(''); setDraftEmail(null)
     reload()
   }
 
@@ -308,26 +370,56 @@ export default function TodayPage() {
       )}
 
       {/* Add Task Modal */}
-      <Modal open={showAddTask} onClose={() => setShowAddTask(false)} title={`Add Task — ${isToday ? 'Today' : formatDay(selectedDate)}`}>
+      <Modal open={showAddTask} onClose={() => { setShowAddTask(false); setDraftEmail(null); setNewOrgId(''); setNewAction(''); setNewNotes('') }} title={`Add Task — ${isToday ? 'Today' : formatDay(selectedDate)}`} wide>
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Organization</label>
-            <select className="select" value={newOrgId} onChange={e => setNewOrgId(e.target.value)}>
+            <select className="select" value={newOrgId} onChange={e => handleOrgChange(e.target.value)}>
               <option value="">Select organization...</option>
               {orgs.map(o => <option key={o.id} value={o.id}>{o.organization_name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Action</label>
-            <textarea className="input min-h-[80px]" value={newAction} onChange={e => setNewAction(e.target.value)}
+            <textarea className="input min-h-[60px]" value={newAction} onChange={e => setNewAction(e.target.value)}
               placeholder="e.g. Research team and send initial outreach email" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
             <input className="input" value={newNotes} onChange={e => setNewNotes(e.target.value)} placeholder="Any additional notes..." />
           </div>
-          <div className="flex justify-end gap-3">
-            <button onClick={() => setShowAddTask(false)} className="btn-secondary">Cancel</button>
+
+          {/* Draft Email Preview */}
+          {draftEmail && draftEmail.body && (
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Draft Email <span className="text-xs text-gray-400 font-normal ml-1">({draftEmail.templateName})</span>
+                </label>
+                <button
+                  onClick={() => navigator.clipboard.writeText(`Subject: ${draftEmail.subject}\n\n${draftEmail.body}`)}
+                  className="btn-ghost text-xs text-gray-400 hover:text-wp-mid p-1"
+                >
+                  <Copy className="w-3.5 h-3.5 mr-1 inline" /> Copy
+                </button>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                <div className="mb-2">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wide">Subject</p>
+                  <p className="text-sm font-medium text-gray-900">{draftEmail.subject}</p>
+                </div>
+                <div className="border-t border-gray-200 pt-2">
+                  <pre className="text-xs text-gray-700 whitespace-pre-wrap font-sans leading-relaxed max-h-[250px] overflow-y-auto">{draftEmail.body}</pre>
+                </div>
+              </div>
+              <p className="text-[11px] text-gray-400 mt-1.5">
+                Replace [First Name] with the contact&apos;s name before sending. Edit the template in Templates to customize further.
+              </p>
+            </div>
+          )}
+
+          <div className="flex justify-end gap-3 pt-1">
+            <button onClick={() => { setShowAddTask(false); setDraftEmail(null); setNewOrgId(''); setNewAction(''); setNewNotes('') }} className="btn-secondary">Cancel</button>
             <button onClick={() => addTaskToday()} className="btn-primary" disabled={!newOrgId || !newAction}>Add Task</button>
           </div>
         </div>
