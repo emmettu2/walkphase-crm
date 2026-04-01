@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { CheckCircle, Circle, Clock, Mail, MessageSquare, Zap, ChevronRight, ChevronDown, FileText, Target, Copy, Eye } from 'lucide-react'
+import { CheckCircle, Circle, Clock, Mail, MessageSquare, Zap, ChevronRight, ChevronDown, FileText, Target, Copy, Eye, Plus } from 'lucide-react'
+import { v4 as uuid } from 'uuid'
 import { PlaybookTask, Organization, Contact, EmailTemplate, OutreachWave, RELATIONSHIP_LABELS } from '@/lib/types'
 import { ensureSeeded, getPlaybookTasksForDate, getOrganizations, getContacts, getTemplates, getWaves, savePlaybookTask, getPlaybookTasks, savePlaybookTasks } from '@/lib/store'
 import { getOrgRecommendations } from '@/lib/recommendations'
@@ -24,6 +25,10 @@ export default function TodayPage() {
   const [showAddContact, setShowAddContact] = useState(false)
   const [addContactOrgId, setAddContactOrgId] = useState<string>('')
   const [expandedTemplate, setExpandedTemplate] = useState<string | null>(null)
+  const [showAddTask, setShowAddTask] = useState(false)
+  const [newOrgId, setNewOrgId] = useState('')
+  const [newAction, setNewAction] = useState('')
+  const [newNotes, setNewNotes] = useState('')
   const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0])
 
   const reload = () => {
@@ -76,6 +81,26 @@ export default function TodayPage() {
 
   const isToday = selectedDate === new Date().toISOString().split('T')[0]
 
+  const addTaskToday = (orgId?: string, action?: string) => {
+    const targetOrgId = orgId || newOrgId
+    const targetAction = action || newAction
+    if (!targetOrgId || !targetAction) return
+    const dayTasks = getPlaybookTasksForDate(selectedDate)
+    const task: PlaybookTask = {
+      id: uuid(), day_date: selectedDate, organization_id: targetOrgId,
+      status: 'pending', priority: dayTasks.length + 1,
+      suggested_action: targetAction, notes: orgId ? '' : newNotes,
+    }
+    savePlaybookTask(task)
+    setShowAddTask(false)
+    setNewOrgId(''); setNewAction(''); setNewNotes('')
+    reload()
+  }
+
+  const quickAddOrg = (orgId: string, orgName: string) => {
+    addTaskToday(orgId, `Research ${orgName} team, identify key contacts, and prepare personalized outreach.`)
+  }
+
   // Find recommended next orgs not yet on any playbook day
   const allTasks = useMemo(() => mounted ? getPlaybookTasks() : [], [mounted, tasks])
   const plannedOrgIds = new Set(allTasks.map(t => t.organization_id))
@@ -96,6 +121,7 @@ export default function TodayPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          <button onClick={() => setShowAddTask(true)} className="btn-primary"><Plus className="w-4 h-4" /> Add Task</button>
           <button onClick={() => goDay(-1)} className="btn-ghost">&larr; Prev</button>
           {!isToday && <button onClick={() => setSelectedDate(new Date().toISOString().split('T')[0])} className="btn-secondary text-xs">Today</button>}
           <button onClick={() => goDay(1)} className="btn-ghost">Next &rarr;</button>
@@ -256,23 +282,56 @@ export default function TodayPage() {
           </h2>
           <div className="space-y-2">
             {unplannedRecs.map(rec => (
-              <Link key={rec.org.id} href={`/organizations/${rec.org.id}`}
-                className="card p-4 flex items-center gap-4 hover:shadow-card-hover transition-all">
-                <span className="text-lg">{categoryIcon(rec.org.target_category)}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900">{rec.org.organization_name}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{rec.talking_points[0]}</p>
-                </div>
-                <div className={cn('text-xs font-bold px-2 py-1 rounded-full tabular-nums',
-                  rec.score.total >= 70 ? 'bg-wp-pale text-wp-deep' : 'bg-amber-50 text-amber-700')}>
-                  {rec.score.total}
-                </div>
-                <ChevronRight className="w-4 h-4 text-gray-300" />
-              </Link>
+              <div key={rec.org.id} className="card p-4 flex items-center gap-4">
+                <Link href={`/organizations/${rec.org.id}`} className="flex items-center gap-4 flex-1 min-w-0 hover:opacity-80 transition-opacity">
+                  <span className="text-lg">{categoryIcon(rec.org.target_category)}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900">{rec.org.organization_name}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{rec.talking_points[0]}</p>
+                  </div>
+                  <div className={cn('text-xs font-bold px-2 py-1 rounded-full tabular-nums',
+                    rec.score.total >= 70 ? 'bg-wp-pale text-wp-deep' : 'bg-amber-50 text-amber-700')}>
+                    {rec.score.total}
+                  </div>
+                </Link>
+                <button
+                  onClick={() => quickAddOrg(rec.org.id, rec.org.organization_name)}
+                  className="btn-ghost text-wp-mid hover:text-wp-deep flex-shrink-0"
+                  title="Add to today's outreach"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              </div>
             ))}
           </div>
         </div>
       )}
+
+      {/* Add Task Modal */}
+      <Modal open={showAddTask} onClose={() => setShowAddTask(false)} title={`Add Task — ${isToday ? 'Today' : formatDay(selectedDate)}`}>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Organization</label>
+            <select className="select" value={newOrgId} onChange={e => setNewOrgId(e.target.value)}>
+              <option value="">Select organization...</option>
+              {orgs.map(o => <option key={o.id} value={o.id}>{o.organization_name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Action</label>
+            <textarea className="input min-h-[80px]" value={newAction} onChange={e => setNewAction(e.target.value)}
+              placeholder="e.g. Research team and send initial outreach email" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+            <input className="input" value={newNotes} onChange={e => setNewNotes(e.target.value)} placeholder="Any additional notes..." />
+          </div>
+          <div className="flex justify-end gap-3">
+            <button onClick={() => setShowAddTask(false)} className="btn-secondary">Cancel</button>
+            <button onClick={() => addTaskToday()} className="btn-primary" disabled={!newOrgId || !newAction}>Add Task</button>
+          </div>
+        </div>
+      </Modal>
 
       <Modal open={showAddContact} onClose={() => setShowAddContact(false)} title="Add Contact" wide>
         <AddContactForm
