@@ -3,17 +3,20 @@
 import { Organization, Contact, OutreachActivity, ScoringWeights, DEFAULT_WEIGHTS, EmailTemplate, OutreachWave, PlaybookTask, SS4AData } from './types'
 import { SEED_ORGANIZATIONS, SEED_CONTACTS, SEED_ACTIVITIES, SEED_TEMPLATES, SEED_WAVES, SEED_PLAYBOOK } from './seed'
 
+// STABLE keys — never change these, or user data gets wiped
 const KEYS = {
-  organizations: 'wp_crm_organizations_v5',
-  contacts: 'wp_crm_contacts_v5',
-  activities: 'wp_crm_activities_v5',
-  weights: 'wp_crm_scoring_weights',
-  templates: 'wp_crm_templates_v2',
-  waves: 'wp_crm_waves_v2',
-  playbook: 'wp_crm_playbook_v3',
-  seeded: 'wp_crm_seeded_v5',
-  ampo_loaded: 'wp_crm_ampo_loaded',
+  organizations: 'wp_crm_orgs',
+  contacts: 'wp_crm_contacts',
+  activities: 'wp_crm_activities',
+  weights: 'wp_crm_weights',
+  templates: 'wp_crm_templates',
+  waves: 'wp_crm_waves',
+  playbook: 'wp_crm_playbook',
+  seeded: 'wp_crm_init',
+  ampo_loaded: 'wp_crm_ampo',
+  version: 'wp_crm_version',
 }
+const CURRENT_VERSION = 6
 
 function load<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback
@@ -30,16 +33,46 @@ function save<T>(key: string, data: T) {
 
 export function ensureSeeded() {
   if (typeof window === 'undefined') return
-  if (localStorage.getItem(KEYS.seeded)) return
-  save(KEYS.organizations, SEED_ORGANIZATIONS)
-  save(KEYS.contacts, SEED_CONTACTS)
-  save(KEYS.activities, SEED_ACTIVITIES)
-  save(KEYS.templates, SEED_TEMPLATES)
-  save(KEYS.waves, SEED_WAVES)
-  save(KEYS.playbook, SEED_PLAYBOOK)
-  localStorage.setItem(KEYS.seeded, 'true')
-  // Auto-load AMPO conference contacts
-  loadAMPOData()
+
+  const currentVer = parseInt(localStorage.getItem(KEYS.version) || '0')
+
+  // Fresh install — no data at all
+  if (currentVer === 0 && !localStorage.getItem(KEYS.seeded)) {
+    // Also clear any old versioned keys from previous approach
+    const oldPrefixes = ['wp_crm_organizations_v', 'wp_crm_contacts_v', 'wp_crm_activities_v',
+      'wp_crm_templates_v', 'wp_crm_waves_v', 'wp_crm_playbook_v', 'wp_crm_seeded_v']
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const key = localStorage.key(i)
+      if (key && oldPrefixes.some(p => key.startsWith(p))) localStorage.removeItem(key)
+    }
+
+    save(KEYS.organizations, SEED_ORGANIZATIONS)
+    save(KEYS.contacts, SEED_CONTACTS)
+    save(KEYS.activities, SEED_ACTIVITIES)
+    save(KEYS.templates, SEED_TEMPLATES)
+    save(KEYS.waves, SEED_WAVES)
+    save(KEYS.playbook, SEED_PLAYBOOK)
+    localStorage.setItem(KEYS.seeded, 'true')
+    localStorage.setItem(KEYS.version, String(CURRENT_VERSION))
+    // Load AMPO data async
+    loadAMPOData()
+    return
+  }
+
+  // Existing install — run migrations without wiping user data
+  if (currentVer < CURRENT_VERSION) {
+    // Ensure templates exist (may be missing from older versions)
+    if (load<EmailTemplate[]>(KEYS.templates, []).length === 0) {
+      save(KEYS.templates, SEED_TEMPLATES)
+    }
+    // Ensure waves exist
+    if (load<OutreachWave[]>(KEYS.waves, []).length === 0) {
+      save(KEYS.waves, SEED_WAVES)
+    }
+    // Load AMPO data if not yet loaded
+    loadAMPOData()
+    localStorage.setItem(KEYS.version, String(CURRENT_VERSION))
+  }
 }
 
 async function loadAMPOData() {
@@ -52,10 +85,10 @@ async function loadAMPOData() {
     ])
     const ampoOrgs: Organization[] = await orgsRes.json()
     const ampoContacts: Contact[] = await contactsRes.json()
-    // Merge with existing
+    // Merge — never overwrite existing records
     const existingOrgs = getOrganizations()
-    const existingIds = new Set(existingOrgs.map(o => o.id))
-    const newOrgs = ampoOrgs.filter(o => !existingIds.has(o.id))
+    const existingOrgIds = new Set(existingOrgs.map(o => o.id))
+    const newOrgs = ampoOrgs.filter(o => !existingOrgIds.has(o.id))
     save(KEYS.organizations, [...existingOrgs, ...newOrgs])
     const existingContacts = getContacts()
     const existingContactIds = new Set(existingContacts.map(c => c.id))
