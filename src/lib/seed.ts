@@ -103,8 +103,114 @@ export const SEED_ORGANIZATIONS: Organization[] = [
   },
 ]
 
-// ─── No seeded contacts — user will add them via form ───
-export const SEED_CONTACTS: Contact[] = []
+// ─── Verified Research Contacts ───
+export const SEED_CONTACTS: Contact[] = [
+  // UC Berkeley SafeTREC
+  {
+    id: 'con-griswold', first_name: 'Julia', last_name: 'Griswold', full_name: 'Dr. Julia Griswold',
+    title: 'Director, SafeTREC', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-berkeley',
+    contact_type: 'director', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-04',
+    notes: 'New SafeTREC director. Previously Acting Co-Director and Safety Research Lead. Key decision-maker for research partnerships.',
+    source: 'SafeTREC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  {
+    id: 'con-oum', first_name: 'SangHyouk', last_name: 'Oum', full_name: 'SangHyouk Oum',
+    title: 'Associate Director, SafeTREC', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-berkeley',
+    contact_type: 'director', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-04',
+    notes: 'Co-leads SafeTREC. Secondary contact after Dr. Griswold.',
+    source: 'SafeTREC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  {
+    id: 'con-peterson', first_name: 'Lisa', last_name: 'Peterson', full_name: 'Lisa Peterson',
+    title: 'Communications & Outreach Lead, SafeTREC', email: 'lisapeterson@berkeley.edu', phone: '',
+    linkedin_url: '', organization_id: 'org-berkeley',
+    contact_type: 'admin', seniority: 'medium', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-04',
+    notes: 'Gateway contact for media and outreach inquiries. Good initial point of contact to get introduced to researchers.',
+    source: 'SafeTREC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // Georgia Tech
+  {
+    id: 'con-watkins', first_name: 'Kari', last_name: 'Watkins', full_name: 'Dr. Kari Watkins',
+    title: 'Associate Professor, Civil & Environmental Engineering', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-gatech',
+    contact_type: 'professor', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-05',
+    notes: 'Published on pedestrian & bicycle safety and signal timing. Frederick Law Olmsted Assoc. Professor. CUTC 2017 New Faculty Award winner. Research on how technology can encourage active transportation.',
+    source: 'Georgia Tech faculty page', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  {
+    id: 'con-kerssens', first_name: 'Chantal', last_name: 'Kerssens', full_name: 'Dr. Chantal Kerssens',
+    title: 'Executive Director, Center for Inclusive Design & Innovation (CIDI)', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-gatech',
+    contact_type: 'director', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-05',
+    notes: 'Leads CIDI — inclusive design for all ages and abilities. Accessibility angle for WalkPhase: signal timing fails people with mobility impairments.',
+    source: 'CIDI website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // MIT AgeLab
+  {
+    id: 'con-coughlin', first_name: 'Joseph', last_name: 'Coughlin', full_name: 'Dr. Joseph Coughlin',
+    title: 'Founder & Director, MIT AgeLab', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-mit',
+    contact_type: 'director', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-07',
+    notes: 'Founded AgeLab in 1999. Core focus on aging, mobility, and transportation infrastructure for older adults. WalkPhase data directly validates his thesis that infrastructure fails aging pedestrians.',
+    source: 'MIT AgeLab website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  {
+    id: 'con-reimer', first_name: 'Bryan', last_name: 'Reimer', full_name: 'Bryan Reimer',
+    title: 'Co-Director, Advanced Vehicle Technology Consortium', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-mit',
+    contact_type: 'researcher', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-07',
+    notes: 'Named to USDOT innovation committee (2024). Mobility futurist. Secondary contact — may be connector to AgeLab pedestrian research.',
+    source: 'MIT News', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // Portland State TREC
+  {
+    id: 'con-dill', first_name: 'Jennifer', last_name: 'Dill', full_name: 'Dr. Jennifer Dill',
+    title: 'Director, TREC; Professor, Urban Studies & Planning', email: 'jdill@pdx.edu', phone: '503-725-5173',
+    linkedin_url: '', organization_id: 'org-portland',
+    contact_type: 'professor', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-08',
+    notes: 'Internationally known active transportation scholar. Editor-in-Chief of Transportation Research Record. 2020 APBP Research Professional of the Year. Direct email confirmed: jdill@pdx.edu.',
+    source: 'TREC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // Texas A&M TTI
+  {
+    id: 'con-sunkari', first_name: 'Srinivasa', last_name: 'Sunkari', full_name: 'Srinivasa Sunkari',
+    title: 'Research Engineer', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-tti',
+    contact_type: 'engineer', seniority: 'medium', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-08',
+    notes: 'Works on pedestrian safety at signalized intersections. Smart Intersection project — automated and connected vehicle test bed for transit, bicycle, and pedestrian safety.',
+    source: 'TTI website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // UNC HSRC
+  {
+    id: 'con-sandt', first_name: 'Laura', last_name: 'Sandt', full_name: 'Dr. Laura Sandt',
+    title: 'Co-Director, HSRC; Director, Pedestrian & Bicycle Info Center', email: 'sandt@hsrc.unc.edu', phone: '',
+    linkedin_url: '', organization_id: 'org-unc',
+    contact_type: 'director', seniority: 'high', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-08',
+    notes: 'Leads the national Pedestrian and Bicycle Information Center (PBIC). Co-directs HSRC. Direct email confirmed: sandt@hsrc.unc.edu. Key contact for pedestrian safety research credibility.',
+    source: 'HSRC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  {
+    id: 'con-pullenseufert', first_name: 'Nancy', last_name: 'Pullen-Seufert', full_name: 'Nancy Pullen-Seufert',
+    title: 'Senior Research Associate; Director, National Center for Safe Routes to School', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-unc',
+    contact_type: 'researcher', seniority: 'medium', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-09',
+    notes: 'Pedestrian and bicycle safety specialist. Secondary contact after Dr. Sandt.',
+    source: 'HSRC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+]
 
 // ─── No seeded activities — start from zero ───
 export const SEED_ACTIVITIES: OutreachActivity[] = []
@@ -263,36 +369,50 @@ export const SEED_WAVES: OutreachWave[] = [
   },
 ]
 
-// ─── Playbook Tasks (seeded day plan) ───
+// ─── Playbook Tasks ───
+// KEY DEADLINE: SS4A FY26 Implementation Grant pre-applications due April 24, 2026
+// Full applications due May 26, 2026
 export const SEED_PLAYBOOK: PlaybookTask[] = [
-  // Day 1: Berkeley
-  { id: 'task-001', day_date: '2026-03-30', organization_id: 'org-berkeley', status: 'pending', priority: 1,
-    suggested_action: 'Research SafeTREC team, identify director and key pedestrian researchers. Prepare personalized email referencing their published work.',
-    notes: 'Check safetrec.berkeley.edu/people for team directory', wave_id: 'wave-1' },
-  { id: 'task-002', day_date: '2026-03-30', organization_id: 'org-berkeley', status: 'pending', priority: 2,
-    suggested_action: 'Send initial outreach email to SafeTREC director using University template. Personalize with reference to their pedestrian safety publications.',
-    notes: 'Use tmpl-uni-initial', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
-  { id: 'task-003', day_date: '2026-03-30', organization_id: 'org-berkeley', status: 'pending', priority: 3,
-    suggested_action: 'Send secondary outreach to a SafeTREC researcher who has published on crossing behavior or signal timing.',
-    notes: 'Look for recent publications on pedestrian crossing speeds', wave_id: 'wave-1' },
-  // Day 2: Georgia Tech
-  { id: 'task-004', day_date: '2026-03-31', organization_id: 'org-gatech', status: 'pending', priority: 1,
-    suggested_action: 'Research Georgia Tech CIDI (Center for Inclusive Design and Innovation) and transportation engineering faculty. Identify accessibility-focused researchers.',
-    notes: 'CIDI angle: signal timing accessibility for people with disabilities', wave_id: 'wave-1' },
-  { id: 'task-005', day_date: '2026-03-31', organization_id: 'org-gatech', status: 'pending', priority: 2,
-    suggested_action: 'Send initial outreach to Georgia Tech transportation/accessibility researcher using University template. Emphasize accessibility angle.',
-    notes: 'Use tmpl-uni-initial, customize for accessibility focus', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
-  { id: 'task-006', day_date: '2026-03-31', organization_id: 'org-gatech', status: 'pending', priority: 3,
-    suggested_action: 'Follow up on Berkeley outreach from yesterday if no response. Check sent emails.',
-    notes: 'Only follow up if truly no response — be patient', wave_id: 'wave-1' },
-  // Day 3: UT Austin + MIT
-  { id: 'task-007', day_date: '2026-04-01', organization_id: 'org-utaustin', status: 'pending', priority: 1,
-    suggested_action: 'Research UT Austin CTR team. Austin is a Vision Zero city — find researchers working on pedestrian safety and signal timing.',
-    notes: 'Austin context: high pedestrian fatality rate, active Vision Zero program', wave_id: 'wave-1' },
-  { id: 'task-008', day_date: '2026-04-01', organization_id: 'org-utaustin', status: 'pending', priority: 2,
-    suggested_action: 'Send initial outreach to UT Austin CTR researcher.',
-    notes: '', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
-  { id: 'task-009', day_date: '2026-04-01', organization_id: 'org-mit', status: 'pending', priority: 3,
-    suggested_action: 'Research MIT AgeLab team. Identify aging/mobility researchers. Send initial outreach emphasizing walking speed decline with age.',
-    notes: 'AgeLab angle: WalkPhase data shows real-world walking speeds that validate their aging research', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
+  // TODAY: Berkeley SafeTREC
+  { id: 'task-001', day_date: '2026-04-04', organization_id: 'org-berkeley', contact_id: 'con-griswold', status: 'pending', priority: 1,
+    suggested_action: 'Email Dr. Julia Griswold (SafeTREC Director). Reference SafeTREC pedestrian research and propose WalkPhase as a data source for signal timing validation.',
+    notes: 'NEW director — great timing for outreach. Use University template.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
+  { id: 'task-002', day_date: '2026-04-04', organization_id: 'org-berkeley', contact_id: 'con-peterson', status: 'pending', priority: 2,
+    suggested_action: 'Email Lisa Peterson (SafeTREC Communications Lead) at lisapeterson@berkeley.edu. Request introduction to pedestrian safety researchers.',
+    notes: 'Confirmed email: lisapeterson@berkeley.edu. Gateway contact.', template_id: 'tmpl-quick-intro', wave_id: 'wave-1' },
+  // Apr 5: Georgia Tech
+  { id: 'task-004', day_date: '2026-04-05', organization_id: 'org-gatech', contact_id: 'con-watkins', status: 'pending', priority: 1,
+    suggested_action: 'Email Dr. Kari Watkins. Reference her published work on pedestrian & bicycle safety and signal timing. Propose WalkPhase data partnership.',
+    notes: 'Olmsted Assoc. Professor. Published on signal timing adjustments for pedestrian safety.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
+  { id: 'task-005', day_date: '2026-04-05', organization_id: 'org-gatech', contact_id: 'con-kerssens', status: 'pending', priority: 2,
+    suggested_action: 'Email Dr. Chantal Kerssens (CIDI Executive Director). Frame WalkPhase as accessibility tool — signal timing fails people with mobility impairments.',
+    notes: 'CIDI angle: inclusive design. Signals assume 1.0 m/s but many disabled pedestrians walk slower.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
+  // Apr 7: MIT AgeLab
+  { id: 'task-006', day_date: '2026-04-07', organization_id: 'org-mit', contact_id: 'con-coughlin', status: 'pending', priority: 1,
+    suggested_action: 'Email Dr. Joseph Coughlin (MIT AgeLab Director). WalkPhase data proves his thesis: infrastructure fails aging pedestrians. Walking speed decline with age = core WalkPhase finding.',
+    notes: 'AgeLab founded 1999 within MIT Center for Transportation. AGNES suit simulates aging — WalkPhase provides real-world data.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
+  { id: 'task-007', day_date: '2026-04-07', organization_id: 'org-mit', contact_id: 'con-reimer', status: 'pending', priority: 2,
+    suggested_action: 'Email Bryan Reimer (AgeLab, USDOT innovation committee). Secondary contact — may connect to pedestrian mobility research within AgeLab.',
+    notes: 'Named to USDOT innovation committee 2024. Connector.', template_id: 'tmpl-quick-intro', wave_id: 'wave-1' },
+  // Apr 8: Wave 2 — Portland, TTI, UNC
+  { id: 'task-008', day_date: '2026-04-08', organization_id: 'org-portland', contact_id: 'con-dill', status: 'pending', priority: 1,
+    suggested_action: 'Email Dr. Jennifer Dill (TREC Director) at jdill@pdx.edu. Leading active transport researcher. Editor-in-Chief of Transportation Research Record.',
+    notes: 'Confirmed email: jdill@pdx.edu. Phone: 503-725-5173. APBP 2020 Research Professional of the Year.', template_id: 'tmpl-uni-initial', wave_id: 'wave-2' },
+  { id: 'task-009', day_date: '2026-04-08', organization_id: 'org-unc', contact_id: 'con-sandt', status: 'pending', priority: 2,
+    suggested_action: 'Email Dr. Laura Sandt (HSRC Co-Director, PBIC Director) at sandt@hsrc.unc.edu. PBIC is THE national pedestrian info center — huge credibility if they engage.',
+    notes: 'Confirmed email: sandt@hsrc.unc.edu. Leads Pedestrian & Bicycle Information Center.', template_id: 'tmpl-uni-initial', wave_id: 'wave-2' },
+  { id: 'task-010', day_date: '2026-04-08', organization_id: 'org-tti', contact_id: 'con-sunkari', status: 'pending', priority: 3,
+    suggested_action: 'Email Srinivasa Sunkari (TTI Research Engineer). Works on pedestrian safety at signalized intersections. Smart Intersection project is directly complementary.',
+    notes: 'TTI Smart Intersection project — automated tech for pedestrian safety at signals.', template_id: 'tmpl-uni-initial', wave_id: 'wave-2' },
+  // Apr 9: UT Austin + follow-ups
+  { id: 'task-011', day_date: '2026-04-09', organization_id: 'org-utaustin', status: 'pending', priority: 1,
+    suggested_action: 'Research UT Austin CTR pedestrian safety faculty (check ctr.utexas.edu/people). Add contacts. Austin is a Vision Zero city with high pedestrian fatality rate.',
+    notes: 'CTR contact page: ctr.utexas.edu/contact. Faculty: ctr.utexas.edu/education/prospective-students/academic-programs/transportation-faculty/', wave_id: 'wave-1' },
+  { id: 'task-012', day_date: '2026-04-09', organization_id: 'org-berkeley', status: 'pending', priority: 2,
+    suggested_action: 'Follow up on Berkeley outreach if no response (5 days since initial email).',
+    notes: 'Use follow-up template if no response.', template_id: 'tmpl-followup', wave_id: 'wave-1' },
+  // Apr 14-18: CRITICAL WEEK — help agencies before April 24 pre-application deadline
+  { id: 'task-013', day_date: '2026-04-14', organization_id: 'org-berkeley', status: 'pending', priority: 1,
+    suggested_action: 'DEADLINE WEEK: SS4A FY26 pre-applications due April 24. Review all responses. Any positive replies → offer WalkPhase data for their applications immediately.',
+    notes: '⚡ $688M in Implementation Grants available. Organizations with Action Plans are submitting NOW.', wave_id: 'wave-1' },
 ]

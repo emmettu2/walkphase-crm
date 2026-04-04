@@ -16,7 +16,7 @@ const KEYS = {
   ampo_loaded: 'wp_crm_ampo',
   version: 'wp_crm_version',
 }
-const CURRENT_VERSION = 6
+const CURRENT_VERSION = 7
 
 function load<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback
@@ -68,6 +68,18 @@ export function ensureSeeded() {
     // Ensure waves exist
     if (load<OutreachWave[]>(KEYS.waves, []).length === 0) {
       save(KEYS.waves, SEED_WAVES)
+    }
+    // v7: Merge verified research contacts and updated playbook
+    if (currentVer < 7) {
+      const existingContacts = load<Contact[]>(KEYS.contacts, [])
+      const existingIds = new Set(existingContacts.map(c => c.id))
+      const newContacts = SEED_CONTACTS.filter(c => !existingIds.has(c.id))
+      if (newContacts.length > 0) save(KEYS.contacts, [...existingContacts, ...newContacts])
+
+      const existingTasks = load<PlaybookTask[]>(KEYS.playbook, [])
+      const existingTaskIds = new Set(existingTasks.map(t => t.id))
+      const newTasks = SEED_PLAYBOOK.filter(t => !existingTaskIds.has(t.id))
+      if (newTasks.length > 0) save(KEYS.playbook, [...existingTasks, ...newTasks])
     }
     // Load AMPO data if not yet loaded
     loadAMPOData()
