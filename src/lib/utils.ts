@@ -44,6 +44,7 @@ export function statusColor(status: RelationshipStatus): string {
     replied: 'badge-green',
     meeting_booked: 'badge-purple',
     deprioritized: 'badge-red',
+    bounced: 'badge-red',
   }
   return map[status]
 }

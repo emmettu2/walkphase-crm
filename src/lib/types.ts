@@ -8,7 +8,7 @@ export type Strength = 'high' | 'medium' | 'low' | 'not_applicable'
 export type YesNoUnknown = 'yes' | 'no' | 'unknown'
 export type ContactType = 'professor' | 'director' | 'program_manager' | 'planner' | 'engineer' | 'admin' | 'researcher' | 'business_development' | 'other'
 export type Seniority = 'high' | 'medium' | 'low'
-export type RelationshipStatus = 'not_contacted' | 'queued' | 'emailed' | 'replied' | 'meeting_booked' | 'deprioritized'
+export type RelationshipStatus = 'not_contacted' | 'queued' | 'emailed' | 'replied' | 'meeting_booked' | 'deprioritized' | 'bounced'
 export type ActivityType = 'email' | 'linkedin' | 'call' | 'meeting' | 'research' | 'note'
 export type OutcomeType = 'sent' | 'replied' | 'no_response' | 'follow_up_due' | 'meeting_booked' | 'not_a_fit' | 'referred'
 export type TemplateCategory = 'university_initial' | 'city_initial' | 'mpo_initial' | 'follow_up' | 'quick_intro' | 'meeting_request' | 'custom'
@@ -187,6 +187,7 @@ export const SS4A_STAGE_LABELS: Record<SS4AStage, string> = {
 export const RELATIONSHIP_LABELS: Record<RelationshipStatus, string> = {
   not_contacted: 'Not Contacted', queued: 'Queued', emailed: 'Emailed',
   replied: 'Replied', meeting_booked: 'Meeting Booked', deprioritized: 'Deprioritized',
+  bounced: 'Bounced',
 }
 
 export const CONTACT_TYPE_LABELS: Record<ContactType, string> = {

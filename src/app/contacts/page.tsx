@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Plus, Search, Users, Mail, Phone, Link2, ExternalLink, CheckCircle } from 'lucide-react'
+import { Plus, Search, Users, Mail, Phone, Link2, CheckCircle, AlertTriangle } from 'lucide-react'
 import { Contact, Organization, RELATIONSHIP_LABELS, CONTACT_TYPE_LABELS } from '@/lib/types'
 import { ensureSeeded, getContacts, getOrganizations, saveContact } from '@/lib/store'
 import { EmptyState } from '@/components/EmptyState'
@@ -186,27 +186,45 @@ export default function ContactsPage() {
                     ) : '—'}
                   </td>
                   <td className="table-cell text-center">
-                    {contact.relationship_status !== 'emailed' && contact.relationship_status !== 'replied' && contact.relationship_status !== 'meeting_booked' ? (
-                      <button
-                        onClick={() => {
-                          saveContact({
-                            ...contact,
-                            relationship_status: 'emailed',
-                            last_contact_date: new Date().toISOString().split('T')[0],
-                          })
-                          reload()
-                        }}
-                        className="btn-ghost text-xs text-gray-400 hover:text-wp-mid whitespace-nowrap"
-                        title="Mark as contacted today"
-                      >
-                        <Mail className="w-3.5 h-3.5 mr-1 inline" />
-                        Contacted
-                      </button>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-xs text-wp-mid">
-                        <CheckCircle className="w-3.5 h-3.5" />
-                      </span>
-                    )}
+                    <div className="flex items-center justify-center gap-1">
+                      {contact.relationship_status !== 'emailed' && contact.relationship_status !== 'replied' && contact.relationship_status !== 'meeting_booked' && contact.relationship_status !== 'bounced' ? (
+                        <button
+                          onClick={() => {
+                            saveContact({
+                              ...contact,
+                              relationship_status: 'emailed',
+                              last_contact_date: new Date().toISOString().split('T')[0],
+                            })
+                            reload()
+                          }}
+                          className="btn-ghost text-xs text-gray-400 hover:text-wp-mid whitespace-nowrap"
+                          title="Mark as contacted today"
+                        >
+                          <Mail className="w-3.5 h-3.5 mr-1 inline" />
+                          Contacted
+                        </button>
+                      ) : contact.relationship_status === 'bounced' ? (
+                        <span className="inline-flex items-center gap-1 text-xs text-red-400">
+                          <AlertTriangle className="w-3.5 h-3.5" /> Bounced
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-xs text-wp-mid">
+                          <CheckCircle className="w-3.5 h-3.5" />
+                        </span>
+                      )}
+                      {contact.relationship_status === 'emailed' && (
+                        <button
+                          onClick={() => {
+                            saveContact({ ...contact, relationship_status: 'bounced' })
+                            reload()
+                          }}
+                          className="btn-ghost text-xs text-gray-300 hover:text-red-500 p-1"
+                          title="Email bounced"
+                        >
+                          <AlertTriangle className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
