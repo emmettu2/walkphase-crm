@@ -110,9 +110,9 @@ export const SEED_CONTACTS: Contact[] = [
     id: 'con-griswold', first_name: 'Julia', last_name: 'Griswold', full_name: 'Dr. Julia Griswold',
     title: 'Director, SafeTREC', email: '', phone: '',
     linkedin_url: '', organization_id: 'org-berkeley',
-    contact_type: 'director', seniority: 'high', relationship_status: 'not_contacted',
-    last_contact_date: '', next_action_date: '2026-04-04',
-    notes: 'New SafeTREC director. Previously Acting Co-Director and Safety Research Lead. Key decision-maker for research partnerships.',
+    contact_type: 'director', seniority: 'high', relationship_status: 'emailed',
+    last_contact_date: '2026-03-30', next_action_date: '2026-04-07',
+    notes: 'New SafeTREC director. Previously Acting Co-Director and Safety Research Lead. Key decision-maker for research partnerships. EMAILED Mon March 30 — no reply yet (5 days). Follow up Mon April 7 if still no reply.',
     source: 'SafeTREC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
   },
   {
@@ -130,7 +130,7 @@ export const SEED_CONTACTS: Contact[] = [
     linkedin_url: '', organization_id: 'org-berkeley',
     contact_type: 'admin', seniority: 'medium', relationship_status: 'not_contacted',
     last_contact_date: '', next_action_date: '2026-04-04',
-    notes: 'Gateway contact for media and outreach inquiries. Good initial point of contact to get introduced to researchers.',
+    notes: 'Communications and outreach role — listed email is for media inquiries. Lower priority than Dr. Griswold or researchers.',
     source: 'SafeTREC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
   },
   // Georgia Tech
@@ -370,16 +370,17 @@ export const SEED_WAVES: OutreachWave[] = [
 ]
 
 // ─── Playbook Tasks ───
-// KEY DEADLINE: SS4A FY26 Implementation Grant pre-applications due April 24, 2026
-// Full applications due May 26, 2026
+// KEY DEADLINES:
+// - April 24, 2026: Implementation Grant pre-application review (optional, Implementation only)
+// - May 26, 2026: Full application deadline (both Planning & Demo AND Implementation)
 export const SEED_PLAYBOOK: PlaybookTask[] = [
   // TODAY: Berkeley SafeTREC
-  { id: 'task-001', day_date: '2026-04-04', organization_id: 'org-berkeley', contact_id: 'con-griswold', status: 'pending', priority: 1,
+  { id: 'task-001', day_date: '2026-04-04', organization_id: 'org-berkeley', contact_id: 'con-griswold', status: 'completed', priority: 1,
     suggested_action: 'Email Dr. Julia Griswold (SafeTREC Director). Reference SafeTREC pedestrian research and propose WalkPhase as a data source for signal timing validation.',
-    notes: 'NEW director — great timing for outreach. Use University template.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
-  { id: 'task-002', day_date: '2026-04-04', organization_id: 'org-berkeley', contact_id: 'con-peterson', status: 'pending', priority: 2,
-    suggested_action: 'Email Lisa Peterson (SafeTREC Communications Lead) at lisapeterson@berkeley.edu. Request introduction to pedestrian safety researchers.',
-    notes: 'Confirmed email: lisapeterson@berkeley.edu. Gateway contact.', template_id: 'tmpl-quick-intro', wave_id: 'wave-1' },
+    notes: 'DONE — emailed Mon March 30. No reply after 5 days. Follow up Mon April 7.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
+  { id: 'task-002', day_date: '2026-04-04', organization_id: 'org-berkeley', contact_id: 'con-oum', status: 'pending', priority: 2,
+    suggested_action: 'Email SangHyouk Oum (SafeTREC Associate Director). Second senior contact at SafeTREC — increases chance of a reply.',
+    notes: 'Associate Director. Secondary outreach alongside Dr. Griswold.', template_id: 'tmpl-uni-initial', wave_id: 'wave-1' },
   // Apr 5: Georgia Tech
   { id: 'task-004', day_date: '2026-04-05', organization_id: 'org-gatech', contact_id: 'con-watkins', status: 'pending', priority: 1,
     suggested_action: 'Email Dr. Kari Watkins. Reference her published work on pedestrian & bicycle safety and signal timing. Propose WalkPhase data partnership.',
@@ -413,6 +414,6 @@ export const SEED_PLAYBOOK: PlaybookTask[] = [
     notes: 'Use follow-up template if no response.', template_id: 'tmpl-followup', wave_id: 'wave-1' },
   // Apr 14-18: CRITICAL WEEK — help agencies before April 24 pre-application deadline
   { id: 'task-013', day_date: '2026-04-14', organization_id: 'org-berkeley', status: 'pending', priority: 1,
-    suggested_action: 'DEADLINE WEEK: SS4A FY26 pre-applications due April 24. Review all responses. Any positive replies → offer WalkPhase data for their applications immediately.',
-    notes: '⚡ $688M in Implementation Grants available. Organizations with Action Plans are submitting NOW.', wave_id: 'wave-1' },
+    suggested_action: 'DEADLINE AWARENESS: SS4A FY26 Implementation Grant pre-apps due April 24 (optional review). Full applications due May 26 for both Planning & Implementation. Review all outreach responses — any positive replies → offer WalkPhase data for their applications.',
+    notes: '~$688M Implementation + ~$306M Planning & Demo available. May 26 is the real deadline for all applicants.', wave_id: 'wave-1' },
 ]
