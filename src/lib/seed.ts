@@ -113,6 +113,17 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     source: 'LinkedIn outreach', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   {
+    id: 'org-sonoma', organization_name: 'Sonoma County',
+    target_category: 'county', organization_type_detail: 'County Government — Public Infrastructure, Active Transportation',
+    website: 'https://sonomacounty.ca.gov', location_city: 'Santa Rosa', location_state: 'CA', region: 'West Coast',
+    notes: 'Lorien Rochioli (Active Transportation Program Group) attended USDOT SS4A webinar April 7 and asked about funding for outreach and engagement. Indicates active SS4A interest.',
+    had_prior_ss4a_grant: 'unknown', has_action_plan: 'unknown', action_plan_type: 'unknown',
+    ss4a_stage: 'likely_planning_candidate', underserved_community_relevance: 'medium',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'medium',
+    strategic_notes: 'Lorien asked at webinar if outreach/engagement can be funded (answer: yes). Active Transportation focus aligns with WalkPhase. California county — may be coordinating with Caltrans or local MPO on SS4A.',
+    source: 'USDOT SS4A Webinar Q&A, April 7 2026', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
+  {
     id: 'org-sarasota', organization_name: 'Sarasota County Government',
     target_category: 'county', organization_type_detail: 'County Government — Bicycle, Pedestrian & Trails',
     website: 'https://www.scgov.net', location_city: 'Sarasota', location_state: 'FL', region: 'Southeast',
@@ -231,6 +242,16 @@ export const SEED_CONTACTS: Contact[] = [
     last_contact_date: '', next_action_date: '2026-04-09',
     notes: 'Pedestrian and bicycle safety specialist. Secondary contact after Dr. Sandt.',
     source: 'HSRC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // Sonoma County
+  {
+    id: 'con-rochioli', first_name: 'Lorien', last_name: 'Rochioli', full_name: 'Lorien Rochioli',
+    title: 'Active Transportation Program Group', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-sonoma',
+    contact_type: 'planner', seniority: 'medium', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-09',
+    notes: 'Attended USDOT SS4A webinar April 7. Asked about funding for outreach and engagement. Works in Active Transportation at Sonoma County Public Infrastructure.',
+    source: 'USDOT SS4A Webinar', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   // Sarasota County
   {

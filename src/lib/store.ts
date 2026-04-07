@@ -16,7 +16,7 @@ const KEYS = {
   ampo_loaded: 'wp_crm_ampo',
   version: 'wp_crm_version',
 }
-const CURRENT_VERSION = 9
+const CURRENT_VERSION = 10
 
 function load<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback
