@@ -124,6 +124,28 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     source: 'USDOT SS4A Webinar Q&A, April 7 2026', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   {
+    id: 'org-milwaukee', organization_name: 'Milwaukee County',
+    target_category: 'county', organization_type_detail: 'County Government — Transportation',
+    website: 'https://county.milwaukee.gov', location_city: 'Milwaukee', location_state: 'WI', region: 'Midwest',
+    notes: 'Major SS4A recipient — $41.4M across FY22-FY25 (top 10 nationally). Has both countywide Comprehensive Safety Action Plan AND individual municipal Safety Action Plans. Jeff Sponcia coordinates across county + municipalities.',
+    had_prior_ss4a_grant: 'yes', has_action_plan: 'yes', action_plan_type: 'ss4a_action_plan',
+    ss4a_stage: 'implementation_candidate', underserved_community_relevance: 'high',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'HOT LEAD. Jeff Sponcia asked at USDOT webinar (April 7) about bundling Implementation + Demonstration across county and municipal plans. $41.4M in prior SS4A funding = proven grant-winner. Multi-jurisdictional coordination = WalkPhase can provide county-wide crossing data across all municipalities.',
+    source: 'USDOT SS4A Webinar Q&A + SS4A Award Data', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
+  {
+    id: 'org-ardurra', organization_name: 'Ardurra Group',
+    target_category: 'signal_company', organization_type_detail: 'Engineering & Consulting Firm — Traffic & Safety',
+    website: 'https://www.ardurra.com', location_city: 'Oviedo', location_state: 'FL', region: 'Southeast',
+    notes: 'Engineering/consulting firm. Christy Lofye is Central Florida Traffic and Safety Team Leader. Asked at SS4A webinar about FYA signal modifications as systemic countermeasure — directly signal-timing related. Consultant relationship = multiplier (can bring WalkPhase into multiple client applications).',
+    had_prior_ss4a_grant: 'no', has_action_plan: 'no', action_plan_type: 'unknown',
+    ss4a_stage: 'no_known_activity', underserved_community_relevance: 'unknown',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'CONSULTANT MULTIPLIER. Ardurra prepares SS4A applications for client cities/counties in Central Florida. Winning Christy over could mean WalkPhase data in multiple applications. Her FYA signal modifications question is the closest to WalkPhase core tech of anyone at the webinar.',
+    source: 'USDOT SS4A Webinar Q&A', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
+  {
     id: 'org-sarasota', organization_name: 'Sarasota County Government',
     target_category: 'county', organization_type_detail: 'County Government — Bicycle, Pedestrian & Trails',
     website: 'https://www.scgov.net', location_city: 'Sarasota', location_state: 'FL', region: 'Southeast',
@@ -243,6 +265,26 @@ export const SEED_CONTACTS: Contact[] = [
     notes: 'Pedestrian and bicycle safety specialist. Secondary contact after Dr. Sandt.',
     source: 'HSRC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
   },
+  // Milwaukee County
+  {
+    id: 'con-sponcia', first_name: 'Jeff', last_name: 'Sponcia', full_name: 'Jeff Sponcia',
+    title: '', email: 'jeff.sponcia@milwaukeecountywi.gov', phone: '',
+    linkedin_url: '', organization_id: 'org-milwaukee',
+    contact_type: 'program_manager', seniority: 'medium', relationship_status: 'emailed',
+    last_contact_date: '2026-04-07', next_action_date: '2026-04-14',
+    notes: 'EMAILED April 7. From SS4A webinar Q&A — asked about bundling Implementation + Demonstration across countywide and municipal plans. Confirmed email: jeff.sponcia@milwaukeecountywi.gov.',
+    source: 'USDOT SS4A Webinar', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
+  // Ardurra (consultant)
+  {
+    id: 'con-lofye', first_name: 'Christy', last_name: 'Lofye', full_name: 'Christy Lofye',
+    title: 'Central Florida Traffic and Safety Team Leader', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-ardurra',
+    contact_type: 'engineer', seniority: 'high', relationship_status: 'emailed',
+    last_contact_date: '2026-04-07', next_action_date: '2026-04-14',
+    notes: 'EMAILED April 7. From SS4A webinar — asked about FYA signal modifications as systemic countermeasure and structural analysis. Directly signal-timing related. At Ardurra since Sep 2023. Consultant = multiplier opportunity.',
+    source: 'USDOT SS4A Webinar, LinkedIn', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
   // Sonoma County
   {
     id: 'con-rochioli', first_name: 'Lorien', last_name: 'Rochioli', full_name: 'Lorien Rochioli',
@@ -258,9 +300,9 @@ export const SEED_CONTACTS: Contact[] = [
     id: 'con-lui', first_name: 'Patrick', last_name: 'Lui', full_name: 'Patrick Lui',
     title: 'Bicycle, Pedestrian & Trails Coordinator', email: '', phone: '',
     linkedin_url: '', organization_id: 'org-sarasota',
-    contact_type: 'planner', seniority: 'medium', relationship_status: 'not_contacted',
-    last_contact_date: '', next_action_date: '2026-04-08',
-    notes: 'Identified from USDOT SS4A webinar Q&A (April 7). Asked about applying for Implementation Grant — plan adopted Sept 24, 2025, waiting on FHWA close-out. Perfect title for WalkPhase pitch: Bicycle, Pedestrian & Trails Coordinator. Key context: their plan found pedestrian crashes are #1 fatal crash type in the county, and commissioners specifically flagged aging road users as a priority — both directly align with WalkPhase. Also: Paula Wiggins (Interim Sr. Transportation Manager) presented to the board.',
+    contact_type: 'planner', seniority: 'medium', relationship_status: 'emailed',
+    last_contact_date: '2026-04-07', next_action_date: '2026-04-14',
+    notes: 'EMAILED April 7 via LinkedIn. Personalized message referencing their Action Plan findings (ped crashes = #1 fatal type, aging road users priority) and how WalkPhase fits their Implementation Grant application. Identified from USDOT SS4A webinar Q&A. Also: Paula Wiggins (Interim Sr. Transportation Manager) presented to board.',
     source: 'USDOT SS4A Webinar, LinkedIn', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   // Arlington County
