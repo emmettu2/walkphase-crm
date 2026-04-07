@@ -16,7 +16,7 @@ const KEYS = {
   ampo_loaded: 'wp_crm_ampo',
   version: 'wp_crm_version',
 }
-const CURRENT_VERSION = 7
+const CURRENT_VERSION = 8
 
 function load<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback
@@ -69,11 +69,16 @@ export function ensureSeeded() {
     if (load<OutreachWave[]>(KEYS.waves, []).length === 0) {
       save(KEYS.waves, SEED_WAVES)
     }
-    // v7: Merge verified research contacts and updated playbook
-    if (currentVer < 7) {
+    // v7+: Merge seed orgs, contacts, and playbook tasks (additive only — never overwrites)
+    if (currentVer < CURRENT_VERSION) {
+      const existingOrgs = load<Organization[]>(KEYS.organizations, [])
+      const existingOrgIds = new Set(existingOrgs.map(o => o.id))
+      const newOrgs = SEED_ORGANIZATIONS.filter(o => !existingOrgIds.has(o.id))
+      if (newOrgs.length > 0) save(KEYS.organizations, [...existingOrgs, ...newOrgs])
+
       const existingContacts = load<Contact[]>(KEYS.contacts, [])
-      const existingIds = new Set(existingContacts.map(c => c.id))
-      const newContacts = SEED_CONTACTS.filter(c => !existingIds.has(c.id))
+      const existingContactIds = new Set(existingContacts.map(c => c.id))
+      const newContacts = SEED_CONTACTS.filter(c => !existingContactIds.has(c.id))
       if (newContacts.length > 0) save(KEYS.contacts, [...existingContacts, ...newContacts])
 
       const existingTasks = load<PlaybookTask[]>(KEYS.playbook, [])

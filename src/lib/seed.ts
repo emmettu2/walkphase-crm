@@ -101,6 +101,17 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     strategic_notes: 'PBIC connection valuable for credibility. Could partner on research validation of WalkPhase methodology.',
     source: 'Research', created_at: '2026-03-28T10:00:00Z', updated_at: '2026-03-30T10:00:00Z',
   },
+  {
+    id: 'org-arlington', organization_name: 'Arlington County',
+    target_category: 'county', organization_type_detail: 'County Government — Transportation Division',
+    website: 'https://www.arlingtonva.us', location_city: 'Arlington', location_state: 'VA', region: 'Mid-Atlantic',
+    notes: 'Arlington County is actively updating their Vision Zero Action Plan — expected to adopt in fall 2026. Matthew Holden (Traffic Analyst) responded positively to WalkPhase outreach via LinkedIn.',
+    had_prior_ss4a_grant: 'unknown', has_action_plan: 'yes', action_plan_type: 'vision_zero',
+    ss4a_stage: 'has_action_plan', underserved_community_relevance: 'medium',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'WARM LEAD. Matthew Holden replied April 7 — will pass to colleagues and said WalkPhase could be of interest once new Vision Zero Action Plan is adopted (fall 2026). Follow up after plan adoption. Could be strong SS4A Implementation Grant candidate for future rounds.',
+    source: 'LinkedIn outreach', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
 ]
 
 // ─── Verified Research Contacts ───
@@ -209,6 +220,16 @@ export const SEED_CONTACTS: Contact[] = [
     last_contact_date: '', next_action_date: '2026-04-09',
     notes: 'Pedestrian and bicycle safety specialist. Secondary contact after Dr. Sandt.',
     source: 'HSRC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // Arlington County
+  {
+    id: 'con-holden', first_name: 'Matthew', last_name: 'Holden', full_name: 'Matthew Holden',
+    title: 'Traffic Analyst', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-arlington',
+    contact_type: 'engineer', seniority: 'medium', relationship_status: 'replied',
+    last_contact_date: '2026-04-07', next_action_date: '2026-10-01',
+    notes: 'Replied via LinkedIn April 7: "This sounds really interesting. I\'ll pass this along to some of my colleagues." Arlington is updating their Vision Zero Action Plan — adopting in fall 2026. WalkPhase could be of interest after adoption. Follow up in fall.',
+    source: 'LinkedIn', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
 ]
 
