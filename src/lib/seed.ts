@@ -112,6 +112,17 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     strategic_notes: 'WARM LEAD. Matthew Holden replied April 7 — will pass to colleagues and said WalkPhase could be of interest once new Vision Zero Action Plan is adopted (fall 2026). Follow up after plan adoption. Could be strong SS4A Implementation Grant candidate for future rounds.',
     source: 'LinkedIn outreach', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
+  {
+    id: 'org-sarasota', organization_name: 'Sarasota County Government',
+    target_category: 'county', organization_type_detail: 'County Government — Bicycle, Pedestrian & Trails',
+    website: 'https://www.scgov.net', location_city: 'Sarasota', location_state: 'FL', region: 'Southeast',
+    notes: 'Comprehensive Safety Action Plan adopted September 2025. Patrick Lui (Bike/Ped/Trails Coordinator) confirmed at USDOT SS4A webinar April 7 that Sarasota is applying for Implementation Grant in FY26. Florida = high pedestrian fatality state.',
+    had_prior_ss4a_grant: 'yes', has_action_plan: 'yes', action_plan_type: 'ss4a_action_plan',
+    ss4a_stage: 'implementation_candidate', underserved_community_relevance: 'medium',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'HOT LEAD. Patrick Lui asked at USDOT webinar (April 7) about applying for Implementation Grant — plan adopted Sept 2025, waiting on FHWA close-out. Actively applying NOW. WalkPhase data could strengthen their implementation application with real pedestrian crossing evidence. Florida has some of the highest pedestrian fatality rates in the US.',
+    source: 'USDOT SS4A Webinar Q&A, April 7 2026', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
+  },
 ]
 
 // ─── Verified Research Contacts ───
@@ -220,6 +231,16 @@ export const SEED_CONTACTS: Contact[] = [
     last_contact_date: '', next_action_date: '2026-04-09',
     notes: 'Pedestrian and bicycle safety specialist. Secondary contact after Dr. Sandt.',
     source: 'HSRC website', created_at: '2026-04-04T10:00:00Z', updated_at: '2026-04-04T10:00:00Z',
+  },
+  // Sarasota County
+  {
+    id: 'con-lui', first_name: 'Patrick', last_name: 'Lui', full_name: 'Patrick Lui',
+    title: 'Bicycle, Pedestrian & Trails Coordinator', email: '', phone: '',
+    linkedin_url: '', organization_id: 'org-sarasota',
+    contact_type: 'planner', seniority: 'medium', relationship_status: 'not_contacted',
+    last_contact_date: '', next_action_date: '2026-04-08',
+    notes: 'Identified from USDOT SS4A webinar Q&A (April 7). Asked about applying for Implementation Grant — plan adopted Sept 2025, waiting on FHWA close-out. Perfect title for WalkPhase: Bicycle, Pedestrian & Trails Coordinator. LinkedIn: Sarasota County Government.',
+    source: 'USDOT SS4A Webinar, LinkedIn', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   // Arlington County
   {
