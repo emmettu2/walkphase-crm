@@ -127,11 +127,11 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     id: 'org-sarasota', organization_name: 'Sarasota County Government',
     target_category: 'county', organization_type_detail: 'County Government — Bicycle, Pedestrian & Trails',
     website: 'https://www.scgov.net', location_city: 'Sarasota', location_state: 'FL', region: 'Southeast',
-    notes: 'Comprehensive Safety Action Plan adopted September 2025. Patrick Lui (Bike/Ped/Trails Coordinator) confirmed at USDOT SS4A webinar April 7 that Sarasota is applying for Implementation Grant in FY26. Florida = high pedestrian fatality state.',
+    notes: 'Safety Action Plan adopted unanimously by Board of County Commissioners on Sept 24, 2025. Developed through SS4A planning grant. Plan found: pedestrian crashes are single largest fatal crash type; 50%+ fatal crashes at night; 45-55mph roads = nearly half of fatal crashes. Plan priorities: speed management, vulnerable road users, roadway lighting, aging road users, impaired driving. Commissioners specifically asked staff to focus on aging-driver demographics. Countermeasures: enhanced crosswalk visibility, medians/refuge islands, sidewalks, access management, lighting. Paula Wiggins (Interim Sr. Transportation Manager) confirmed plan positions county for implementation grants.',
     had_prior_ss4a_grant: 'yes', has_action_plan: 'yes', action_plan_type: 'ss4a_action_plan',
     ss4a_stage: 'implementation_candidate', underserved_community_relevance: 'medium',
     pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
-    strategic_notes: 'HOT LEAD. Patrick Lui asked at USDOT webinar (April 7) about applying for Implementation Grant — plan adopted Sept 2025, waiting on FHWA close-out. Actively applying NOW. WalkPhase data could strengthen their implementation application with real pedestrian crossing evidence. Florida has some of the highest pedestrian fatality rates in the US.',
+    strategic_notes: 'HOT LEAD. Patrick Lui confirmed at USDOT webinar (April 7) they are applying for Implementation Grant. Plan adopted Sept 2025 — 1,800 fatal/incapacitating crashes over 5 years. Pedestrian crashes = #1 fatal crash type. Commissioners flagged aging road users as priority. WalkPhase is perfect fit: (1) measures real walking speeds of aging/vulnerable pedestrians, (2) identifies where signal timing falls short at specific intersections, (3) provides before/after data for countermeasure evaluation. Additional contact: Paula Wiggins (Interim Sr. Transportation Manager). Consultant: Chris Keller at Benesch.',
     source: 'USDOT SS4A Webinar Q&A, April 7 2026', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
 ]
@@ -260,7 +260,7 @@ export const SEED_CONTACTS: Contact[] = [
     linkedin_url: '', organization_id: 'org-sarasota',
     contact_type: 'planner', seniority: 'medium', relationship_status: 'not_contacted',
     last_contact_date: '', next_action_date: '2026-04-08',
-    notes: 'Identified from USDOT SS4A webinar Q&A (April 7). Asked about applying for Implementation Grant — plan adopted Sept 2025, waiting on FHWA close-out. Perfect title for WalkPhase: Bicycle, Pedestrian & Trails Coordinator. LinkedIn: Sarasota County Government.',
+    notes: 'Identified from USDOT SS4A webinar Q&A (April 7). Asked about applying for Implementation Grant — plan adopted Sept 24, 2025, waiting on FHWA close-out. Perfect title for WalkPhase pitch: Bicycle, Pedestrian & Trails Coordinator. Key context: their plan found pedestrian crashes are #1 fatal crash type in the county, and commissioners specifically flagged aging road users as a priority — both directly align with WalkPhase. Also: Paula Wiggins (Interim Sr. Transportation Manager) presented to the board.',
     source: 'USDOT SS4A Webinar, LinkedIn', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   // Arlington County
