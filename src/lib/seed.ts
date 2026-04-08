@@ -290,9 +290,9 @@ export const SEED_CONTACTS: Contact[] = [
     id: 'con-rochioli', first_name: 'Lorien', last_name: 'Rochioli', full_name: 'Lorien Rochioli',
     title: 'Active Transportation Program Group', email: '', phone: '',
     linkedin_url: '', organization_id: 'org-sonoma',
-    contact_type: 'planner', seniority: 'medium', relationship_status: 'not_contacted',
-    last_contact_date: '', next_action_date: '2026-04-09',
-    notes: 'Attended USDOT SS4A webinar April 7. Asked about funding for outreach and engagement. Works in Active Transportation at Sonoma County Public Infrastructure.',
+    contact_type: 'planner', seniority: 'medium', relationship_status: 'deprioritized',
+    last_contact_date: '', next_action_date: '',
+    notes: 'SKIP — Sonoma County has prior business relationship with Carma. Do not contact to keep personal/work separate. Originally from SS4A webinar April 7.',
     source: 'USDOT SS4A Webinar', created_at: '2026-04-07T10:00:00Z', updated_at: '2026-04-07T10:00:00Z',
   },
   // Sarasota County
