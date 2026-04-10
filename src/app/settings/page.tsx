@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Save, RotateCcw } from 'lucide-react'
+import { Save, RotateCcw, Cloud, CloudDownload, CloudUpload, CheckCircle, AlertCircle } from 'lucide-react'
 import { ScoringWeights, DEFAULT_WEIGHTS } from '@/lib/types'
-import { getScoringWeights, saveScoringWeights } from '@/lib/store'
+import { getScoringWeights, saveScoringWeights, syncToCloud, syncFromCloud } from '@/lib/store'
 
 const WEIGHT_LABELS: Record<keyof ScoringWeights, { label: string; description: string }> = {
   organization_type_fit: { label: 'Organization Type Fit', description: 'How well the org type matches WalkPhase targets (university, city, MPO)' },
@@ -106,10 +106,13 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      {/* Cloud Sync */}
+      <CloudSyncCard />
+
       {/* Data Management */}
       <div className="card p-6 mt-6">
         <h2 className="text-base font-semibold text-gray-900 mb-2">Data Management</h2>
-        <p className="text-sm text-gray-500 mb-4">All data is stored locally in your browser. Export regularly to avoid data loss.</p>
+        <p className="text-sm text-gray-500 mb-4">All data is stored locally in your browser. Use Cloud Sync above to back up and restore across devices.</p>
         <div className="flex items-center gap-3">
           <button
             onClick={() => {
@@ -134,6 +137,59 @@ export default function SettingsPage() {
             Clear All Data
           </button>
         </div>
+      </div>
+    </div>
+  )
+}
+
+function CloudSyncCard() {
+  const [syncing, setSyncing] = useState(false)
+  const [message, setMessage] = useState<{ text: string; success: boolean } | null>(null)
+
+  const handleSave = async () => {
+    setSyncing(true)
+    setMessage(null)
+    const result = await syncToCloud()
+    setMessage({ text: result.message, success: result.success })
+    setSyncing(false)
+  }
+
+  const handleRestore = async () => {
+    if (!confirm('This will replace all local data with the cloud backup. Any local changes not saved to cloud will be lost. Continue?')) return
+    setSyncing(true)
+    setMessage(null)
+    const result = await syncFromCloud()
+    setMessage({ text: result.message, success: result.success })
+    setSyncing(false)
+    if (result.success) {
+      setTimeout(() => window.location.reload(), 1500)
+    }
+  }
+
+  return (
+    <div className="card p-6 mt-6">
+      <div className="flex items-center gap-3 mb-2">
+        <Cloud className="w-5 h-5 text-wp-mid" />
+        <h2 className="text-base font-semibold text-gray-900">Cloud Sync</h2>
+      </div>
+      <p className="text-sm text-gray-500 mb-4">
+        Save your CRM data to the cloud so it persists across browsers and devices. Your data is stored securely on Vercel.
+      </p>
+
+      {message && (
+        <div className={`flex items-center gap-2 p-3 rounded-xl mb-4 text-sm ${message.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+          {message.success ? <CheckCircle className="w-4 h-4 flex-shrink-0" /> : <AlertCircle className="w-4 h-4 flex-shrink-0" />}
+          {message.text}
+        </div>
+      )}
+
+      <div className="flex items-center gap-3">
+        <button onClick={handleSave} disabled={syncing} className="btn-primary disabled:opacity-50">
+          <CloudUpload className="w-4 h-4" /> {syncing ? 'Syncing...' : 'Save to Cloud'}
+        </button>
+        <button onClick={handleRestore} disabled={syncing} className="btn-secondary disabled:opacity-50">
+          <CloudDownload className="w-4 h-4" /> {syncing ? 'Syncing...' : 'Restore from Cloud'}
+        </button>
       </div>
     </div>
   )

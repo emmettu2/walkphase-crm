@@ -230,3 +230,75 @@ export function searchOrganizations(query: string): Organization[] {
     o.target_category.toLowerCase().includes(q)
   )
 }
+
+// ─── Cloud Sync (Vercel Blob) ───
+
+interface CRMSnapshot {
+  organizations: Organization[]
+  contacts: Contact[]
+  activities: OutreachActivity[]
+  weights: ScoringWeights
+  templates: EmailTemplate[]
+  waves: OutreachWave[]
+  playbook: PlaybookTask[]
+  version: number
+  savedAt: string
+}
+
+function getAllData(): CRMSnapshot {
+  return {
+    organizations: getOrganizations(),
+    contacts: getContacts(),
+    activities: getActivities(),
+    weights: getScoringWeights(),
+    templates: getTemplates(),
+    waves: getWaves(),
+    playbook: getPlaybookTasks(),
+    version: CURRENT_VERSION,
+    savedAt: new Date().toISOString(),
+  }
+}
+
+function restoreData(snapshot: CRMSnapshot) {
+  save(KEYS.organizations, snapshot.organizations)
+  save(KEYS.contacts, snapshot.contacts)
+  save(KEYS.activities, snapshot.activities)
+  save(KEYS.weights, snapshot.weights)
+  save(KEYS.templates, snapshot.templates)
+  save(KEYS.waves, snapshot.waves)
+  save(KEYS.playbook, snapshot.playbook)
+  if (snapshot.version) localStorage.setItem(KEYS.version, String(snapshot.version))
+}
+
+export async function syncToCloud(): Promise<{ success: boolean; message: string }> {
+  try {
+    const data = getAllData()
+    const res = await fetch('/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    const result = await res.json()
+    if (result.success) {
+      return { success: true, message: `Synced ${data.organizations.length} orgs, ${data.contacts.length} contacts to cloud` }
+    }
+    return { success: false, message: result.error || 'Sync failed' }
+  } catch (error) {
+    return { success: false, message: `Sync error: ${error}` }
+  }
+}
+
+export async function syncFromCloud(): Promise<{ success: boolean; message: string }> {
+  try {
+    const res = await fetch('/api/sync')
+    const result = await res.json()
+    if (!result.exists) {
+      return { success: false, message: 'No cloud data found. Save to cloud first.' }
+    }
+    const snapshot = result.data as CRMSnapshot
+    restoreData(snapshot)
+    return { success: true, message: `Restored ${snapshot.organizations.length} orgs, ${snapshot.contacts.length} contacts from cloud (saved ${new Date(snapshot.savedAt).toLocaleString()})` }
+  } catch (error) {
+    return { success: false, message: `Restore error: ${error}` }
+  }
+}
