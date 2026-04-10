@@ -255,6 +255,40 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     strategic_notes: 'David Hong has MIT background and grant-winning experience. WalkPhase data as a layer for capital investment prioritization aligns directly with his recent USDOT grant work.',
     source: 'LinkedIn outreach + SS4A Award Data', created_at: '2026-04-09T10:00:00Z', updated_at: '2026-04-09T10:00:00Z',
   },
+  // Palm Beach sub-jurisdictions (pincer strategy)
+  {
+    id: 'org-jupiter', organization_name: 'Town of Jupiter',
+    target_category: 'city', organization_type_detail: 'Town Government — Engineering / Traffic',
+    website: 'https://www.jupiter.fl.us', location_city: 'Jupiter', location_state: 'FL', region: 'Southeast',
+    notes: 'Pop ~65,000. Covered by Palm Beach MPO SS4A Action Plan — eligible for Implementation Grants independently. Has bike/ped safety initiatives and traffic calming program. Chang-Jen Lan is Traffic and Transportation Engineer (former Assistant Professor, University of Miami).',
+    had_prior_ss4a_grant: 'no', has_action_plan: 'no', action_plan_type: 'unknown',
+    ss4a_stage: 'likely_planning_candidate', underserved_community_relevance: 'medium',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'PINCER STRATEGY — sub-jurisdiction of Palm Beach MPO. If Jupiter contacts Brian Ruscher at MPO about WalkPhase, it validates from both directions. No own SS4A funding yet = strong new entrant candidate.',
+    source: 'Palm Beach MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'org-lakeworthbeach', organization_name: 'City of Lake Worth Beach',
+    target_category: 'city', organization_type_detail: 'City Government — Public Works',
+    website: 'https://lakeworthbeachfl.gov', location_city: 'Lake Worth Beach', location_state: 'FL', region: 'Southeast',
+    notes: 'Pop ~37,000. Covered by Palm Beach MPO SS4A Action Plan. Diverse, lower-income community within wealthy Palm Beach County — strong equity angle for SS4A. Has a Mobility Plan addressing safety, access, equity. Jamie Brown is Public Works Director.',
+    had_prior_ss4a_grant: 'no', has_action_plan: 'no', action_plan_type: 'unknown',
+    ss4a_stage: 'likely_planning_candidate', underserved_community_relevance: 'high',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'PINCER STRATEGY + EQUITY ANGLE. Underserved community within Palm Beach MPO jurisdiction. Strong equity narrative for SS4A. No own SS4A funding = new entrant.',
+    source: 'Palm Beach MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'org-royalpalmbeach', organization_name: 'Village of Royal Palm Beach',
+    target_category: 'city', organization_type_detail: 'Village Government — Public Works / Engineering',
+    website: 'https://www.royalpalmbeachfl.gov', location_city: 'Royal Palm Beach', location_state: 'FL', region: 'Southeast',
+    notes: 'Pop ~40,000. Covered by Palm Beach MPO SS4A Action Plan. Suburban community with pedestrian infrastructure gaps. Paul Webster P.E. is Public Works Director.',
+    had_prior_ss4a_grant: 'no', has_action_plan: 'no', action_plan_type: 'unknown',
+    ss4a_stage: 'likely_planning_candidate', underserved_community_relevance: 'medium',
+    pedestrian_safety_relevance: 'medium', university_research_strength: 'not_applicable', grant_partner_fit: 'medium',
+    strategic_notes: 'PINCER STRATEGY. Suburban community within Palm Beach MPO. No own SS4A funding = new entrant.',
+    source: 'Palm Beach MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
 ]
 
 // ─── Verified Research Contacts ───
@@ -512,6 +546,34 @@ export const SEED_CONTACTS: Contact[] = [
     last_contact_date: '2026-04-09', next_action_date: '2026-04-16',
     notes: 'LINKEDIN connection note sent April 9. MIT background. Won $1.5M USDOT grant for capital investment prioritization. WalkPhase data aligns with his prioritization work.',
     source: 'LinkedIn', created_at: '2026-04-09T10:00:00Z', updated_at: '2026-04-09T10:00:00Z',
+  },
+  // Palm Beach sub-jurisdictions (pincer strategy)
+  {
+    id: 'con-lan', first_name: 'Chang-Jen', last_name: 'Lan', full_name: 'Chang-Jen Lan',
+    title: 'Traffic and Transportation Engineer', email: 'cjl@Jupiter.fl.us', phone: '561-741-2538',
+    linkedin_url: '', organization_id: 'org-jupiter',
+    contact_type: 'engineer', seniority: 'medium', relationship_status: 'emailed',
+    last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
+    notes: 'LINKEDIN connection + EMAIL sent April 10. Former Assistant Professor at University of Miami — academic background, will appreciate data angle. Email: cjl@Jupiter.fl.us. Part of Palm Beach MPO pincer strategy.',
+    source: 'Jupiter staff directory, LinkedIn', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'con-brown', first_name: 'Jamie', last_name: 'Brown', full_name: 'Jamie Brown',
+    title: 'Public Works Director', email: 'jbrown@lakeworthbeachfl.gov', phone: '',
+    linkedin_url: '', organization_id: 'org-lakeworthbeach',
+    contact_type: 'director', seniority: 'high', relationship_status: 'emailed',
+    last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
+    notes: 'LINKEDIN connection + EMAIL sent April 10. CFM, LEED AP BD/C, ENV SP. May have served as interim City Manager (Dec 2023). Email: jbrown@lakeworthbeachfl.gov. Equity angle for Lake Worth Beach.',
+    source: 'Lake Worth Beach website, LinkedIn', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'con-webster', first_name: 'Paul', last_name: 'Webster', full_name: 'Paul L. Webster, P.E.',
+    title: 'Public Works Director', email: 'pwebster@royalpalmbeach.com', phone: '',
+    linkedin_url: '', organization_id: 'org-royalpalmbeach',
+    contact_type: 'director', seniority: 'high', relationship_status: 'emailed',
+    last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
+    notes: 'LINKEDIN connection + EMAIL sent April 10. P.E. licensed. Email: pwebster@royalpalmbeach.com. Part of Palm Beach MPO pincer strategy.',
+    source: 'Royal Palm Beach website, LinkedIn', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
   },
 ]
 
