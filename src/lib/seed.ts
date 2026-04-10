@@ -289,6 +289,40 @@ export const SEED_ORGANIZATIONS: Organization[] = [
     strategic_notes: 'PINCER STRATEGY. Suburban community within Palm Beach MPO. No own SS4A funding = new entrant.',
     source: 'Palm Beach MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
   },
+  // Broward pincer strategy
+  {
+    id: 'org-fortlauderdale', organization_name: 'City of Fort Lauderdale',
+    target_category: 'city', organization_type_detail: 'City Government — Transportation and Mobility Department',
+    website: 'https://www.fortlauderdale.gov', location_city: 'Fort Lauderdale', location_state: 'FL', region: 'Southeast',
+    notes: 'Has own Vision Zero Action Plan AND covered by Broward MPO Action Plan ($5.0M FY22). Own SS4A $400K FY24 Planning & Demo. Dedicated Transportation and Mobility Department (rare for FL cities). Pedestrians = 44% of fatal crashes. Milos Majstorovic is Director (since Jul 2025).',
+    had_prior_ss4a_grant: 'yes', has_action_plan: 'yes', action_plan_type: 'vision_zero',
+    ss4a_stage: 'has_action_plan', underserved_community_relevance: 'high',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'BROWARD PINCER — flagship city. Has own Vision Zero plan + Broward MPO plan. Milos has PE license, background in ped/bike master planning, and grant experience ($2.4M+ at Miami Beach). High-value contact.',
+    source: 'Broward MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'org-hollywood', organization_name: 'City of Hollywood',
+    target_category: 'city', organization_type_detail: 'City Government — Engineering, Transportation & Mobility',
+    website: 'https://www.hollywoodfl.org', location_city: 'Hollywood', location_state: 'FL', region: 'Southeast',
+    notes: 'Pop 153K. Covered by Broward MPO Action Plan. Has Engineering, Transportation & Mobility division. Hollywood Beach Broadwalk is major pedestrian area. Sidewalk improvements underway in Hollywood Gardens West via Broward MPO.',
+    had_prior_ss4a_grant: 'no', has_action_plan: 'no', action_plan_type: 'unknown',
+    ss4a_stage: 'likely_planning_candidate', underserved_community_relevance: 'medium',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'BROWARD PINCER. Large city, no own SS4A funding = new entrant. Pedestrian-heavy Broadwalk area. Eligible through Broward MPO plan.',
+    source: 'Broward MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'org-pompano', organization_name: 'City of Pompano Beach',
+    target_category: 'city', organization_type_detail: 'City Government — Engineering',
+    website: 'https://www.pompanobeachfl.gov', location_city: 'Pompano Beach', location_state: 'FL', region: 'Southeast',
+    notes: 'Pop 112K. Already has $300K SS4A Planning & Demo (FY24). Covered by Broward MPO Action Plan. Key corridors: Dixie Highway, MLK Jr Blvd, NE 1st Street. Traffic Engineering involved in Broward Regional Comprehensive Safety Action Plan.',
+    had_prior_ss4a_grant: 'yes', has_action_plan: 'no', action_plan_type: 'unknown',
+    ss4a_stage: 'planning_demo_candidate', underserved_community_relevance: 'high',
+    pedestrian_safety_relevance: 'high', university_research_strength: 'not_applicable', grant_partner_fit: 'high',
+    strategic_notes: 'BROWARD PINCER. Already SS4A engaged. MLK Jr Blvd = underserved community corridor. Eligible for implementation through Broward MPO plan.',
+    source: 'Broward MPO sub-jurisdiction research', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
 ]
 
 // ─── Verified Research Contacts ───
@@ -574,6 +608,34 @@ export const SEED_CONTACTS: Contact[] = [
     last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
     notes: 'LINKEDIN connection + EMAIL sent April 10. P.E. licensed. Email: pwebster@royalpalmbeach.com. Part of Palm Beach MPO pincer strategy.',
     source: 'Royal Palm Beach website, LinkedIn', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  // Broward pincer strategy
+  {
+    id: 'con-majstorovic', first_name: 'Milos', last_name: 'Majstorovic', full_name: 'Milos Majstorovic, MSCE, PE',
+    title: 'Director, Transportation and Mobility Department', email: 'mmajstorovic@fortlauderdale.gov', phone: '954-828-5216',
+    linkedin_url: '', organization_id: 'org-fortlauderdale',
+    contact_type: 'director', seniority: 'high', relationship_status: 'emailed',
+    last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
+    notes: 'LINKEDIN + EMAIL sent April 10. Director since Jul 2025 (Acting since May 2024). PE licensed. Previously at City of Miami Beach — Transportation Manager for 7 years, secured $2.4M+ in grants, oversaw ped/bike master planning. High-value contact.',
+    source: 'LinkedIn, Fort Lauderdale website', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'con-garcia', first_name: 'Jose', last_name: 'Garcia', full_name: 'Jose D. Garcia',
+    title: 'Project Manager, Engineering Transportation & Mobility', email: 'jgarcia@hollywoodfl.org', phone: '754-221-8020',
+    linkedin_url: '', organization_id: 'org-hollywood',
+    contact_type: 'program_manager', seniority: 'medium', relationship_status: 'emailed',
+    last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
+    notes: 'LINKEDIN + EMAIL sent April 10. Project Manager in Engineering, Transportation & Mobility. Part of Broward pincer strategy.',
+    source: 'Hollywood FL website, LinkedIn', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
+  },
+  {
+    id: 'con-barszewski', first_name: 'Maggie', last_name: 'Barszewski', full_name: 'Maggie Barszewski',
+    title: 'Roadway Projects', email: 'Maggie.barszewski@copbfl.com', phone: '954-786-7921',
+    linkedin_url: '', organization_id: 'org-pompano',
+    contact_type: 'engineer', seniority: 'medium', relationship_status: 'emailed',
+    last_contact_date: '2026-04-10', next_action_date: '2026-04-17',
+    notes: 'LINKEDIN + EMAIL sent April 10. Handles roadway projects. Pompano already has SS4A Planning & Demo funding. Key corridors: Dixie Hwy, MLK Jr Blvd, NE 1st St. Part of Broward pincer strategy.',
+    source: 'Pompano Beach website, LinkedIn', created_at: '2026-04-10T10:00:00Z', updated_at: '2026-04-10T10:00:00Z',
   },
 ]
 
